@@ -56,8 +56,6 @@ def get_max_tweet_id(user, output_dir):
                 if max_tweet_id is None or int(tweet['id']) > max_tweet_id:
                     max_tweet_id = int(tweet['id'])
     return max_tweet_id
-            
-
 
 def get_json_file(user, output_dir):
     return pathlib.Path(output_dir / f'{user}.jsonl')
