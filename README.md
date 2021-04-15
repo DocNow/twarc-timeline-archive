@@ -1,6 +1,6 @@
 # twarc-timelines
 
-This module extends twarc to allow you to fetch the timelines for a list of
+This module extends [twarc] to allow you to fetch the timelines for a list of
 users (either Twitter user_ids or usernames). By default the tweets will be
 written to a single file or stdout.
 
