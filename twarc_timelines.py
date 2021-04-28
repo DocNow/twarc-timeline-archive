@@ -34,9 +34,10 @@ def timelines(T, infile, outfile, output_dir, use_search):
             since_id = None
 
         # which api endpoint to use
-        if use_search:
+        if use_search and since_id:
+            tweets = T.search_all(f'from:{line}', since_id=since_id)
+        elif use_search:
             tweets = T.search_all(f'from:{line}', 
-                since_id=since_id,
                 start_time=datetime.datetime(2006, 3, 21, tzinfo=datetime.timezone.utc))
         else:
             tweets = T.timeline(line, since_id=since_id)
