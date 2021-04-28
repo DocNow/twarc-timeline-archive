@@ -5,7 +5,7 @@ with open("README.md") as f:
 
 setuptools.setup(
     name='twarc-timelines',
-    version='0.0.3',
+    version='0.0.4',
     url='https://github.com/docnow/twarc-timelines',
     author='Ed Summers',
     author_email='ehs@pobox.com',
@@ -14,7 +14,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     python_requires='>=3.3',
-    install_requires=['twarc>=2.0.3'],
+    install_requires=['twarc>=2.0.8'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     entry_points='''

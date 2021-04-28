@@ -3,14 +3,18 @@ import json
 import twarc
 import click
 import pathlib
+import datetime
 
-@click.command('timelines')
+@click.command()
 @click.option('--output-dir', type=str, 
     help='Write tweets to user specific files in directory')
+@click.option('--use-search', is_flag=True, default=False,
+    help='Use the search/all API endpoint which is not limited to the last 3200 tweets, but '
+         'requires Academic Product Track access.') 
 @click.argument('infile', type=click.File('r'), default='-')
 @click.argument('outfile', type=click.File('w'), default='-')
 @click.pass_obj
-def timelines(T, infile, output_dir, outfile):
+def timelines(T, infile, outfile, output_dir, use_search):
     """
     Fetch the timelines for every username or userid in a file.
     """
@@ -29,7 +33,15 @@ def timelines(T, infile, output_dir, outfile):
         else:
             since_id = None
 
-        for response in T.timeline(line, since_id=since_id):
+        # which api endpoint to use
+        if use_search:
+            tweets = T.search_all(f'from:{line}', 
+                since_id=since_id,
+                start_time=datetime.datetime(2006, 3, 21, tzinfo=datetime.timezone.utc))
+        else:
+            tweets = T.timeline(line, since_id=since_id)
+
+        for response in tweets:
             if output_dir:
                 write_response(line, response, output_dir) 
             else:
