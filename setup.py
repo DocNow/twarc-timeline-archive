@@ -4,9 +4,9 @@ with open("README.md") as f:
     long_description = f.read()
 
 setuptools.setup(
-    name='twarc-timelines',
-    version='0.0.5',
-    url='https://github.com/docnow/twarc-timelines',
+    name='twarc-timeline-archive',
+    version='0.1.0',
+    url='https://github.com/docnow/twarc-timeline-archive',
     author='Ed Summers',
     author_email='ehs@pobox.com',
     py_modules=['twarc_timelines'],
@@ -19,6 +19,6 @@ setuptools.setup(
     tests_require=['pytest'],
     entry_points='''
         [twarc.plugins]
-        timelines=twarc_timelines:timelines
+        timeline_archive=twarc_timeline_archive:timeline_archive
     '''
 )
