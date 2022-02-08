@@ -5,33 +5,26 @@ import click
 import pathlib
 import datetime
 
-@click.command()
-@click.option('--output-dir', type=str, 
-    help='Write tweets to user specific files in directory')
+@click.command('timeline-archive')
 @click.option('--use-search', is_flag=True, default=False,
-    help='Use the search/all API endpoint which is not limited to the last 3200 tweets, but '
-         'requires Academic Product Track access.') 
+    help='Use the search/all API endpoint which is not limited to the last 3200 tweets, but requires Academic Product Track access.') 
 @click.argument('infile', type=click.File('r'), default='-')
-@click.argument('outfile', type=click.File('w'), default='-')
+@click.argument('output_dir', type=str, default='timelines')
 @click.pass_obj
-def timelines(T, infile, outfile, output_dir, use_search):
+def timeline_archive(T, infile, output_dir, use_search):
     """
     Fetch the timelines for every username or userid in a file.
     """
 
-    if output_dir:
-        output_dir = pathlib.Path(output_dir)
-        if not output_dir.is_dir():
-            output_dir.mkdir(parents=True)
+    output_dir = pathlib.Path(output_dir)
+    if not output_dir.is_dir():
+        output_dir.mkdir(parents=True)
 
     for line in infile:
         line = line.strip()
         usernames = False if re.match(r'^\d+$', line) else True
-        if output_dir:
-            since_id = get_max_tweet_id(line, output_dir)
-            click.echo(f'🌟  fetching timeline for {line} since {since_id}')
-        else:
-            since_id = None
+        since_id = get_max_tweet_id(line, output_dir)
+        click.echo(f'🌟  fetching timeline for {line} since {since_id}')
 
         # which api endpoint to use
         if use_search and since_id:
@@ -43,10 +36,7 @@ def timelines(T, infile, outfile, output_dir, use_search):
             tweets = T.timeline(line, since_id=since_id)
 
         for response in tweets:
-            if output_dir:
-                write_response(line, response, output_dir) 
-            else:
-                click.echo(json.dumps(response) + "\n", file=outfile)
+            write_response(line, response, output_dir) 
 
 file_handles = {}
 def write_response(user, response, output_dir):
