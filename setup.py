@@ -5,11 +5,11 @@ with open("README.md") as f:
 
 setuptools.setup(
     name='twarc-timeline-archive',
-    version='0.1.0',
+    version='0.1.2',
     url='https://github.com/docnow/twarc-timeline-archive',
     author='Ed Summers',
     author_email='ehs@pobox.com',
-    py_modules=['twarc_timelines'],
+    py_modules=['twarc_timeline_archive'],
     description='A twarc plugin to collect the timelines of a list of users',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -19,6 +19,6 @@ setuptools.setup(
     tests_require=['pytest'],
     entry_points='''
         [twarc.plugins]
-        timeline_archive=twarc_timeline_archive:timeline_archive
+        timeline-archive=twarc_timeline_archive:timeline_archive
     '''
 )
