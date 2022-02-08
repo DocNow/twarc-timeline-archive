@@ -9,6 +9,12 @@ All the tweets will be written to files named after the user in the given
 directory. When you run timelines successively on multiple days it is smart
 enough to only fetch tweets since the last tweet that was found for the user.
 
-    twarc timeline-archive users.txt /path/to/a/directory
+Install with:
+
+    pip3 install --upgrade twarc-timeline-archive
+    
+ And run it like this:
+
+    twarc2 timeline-archive users.txt /path/to/a/directory
 
 [twarc]: https://github.com/docnow/twarc
