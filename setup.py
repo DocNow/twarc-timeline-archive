@@ -5,7 +5,7 @@ with open("README.md") as f:
 
 setuptools.setup(
     name='twarc-timeline-archive',
-    version='0.1.2',
+    version='0.1.3',
     url='https://github.com/docnow/twarc-timeline-archive',
     author='Ed Summers',
     author_email='ehs@pobox.com',
